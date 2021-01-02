@@ -17,15 +17,29 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	if( argc < 2 )
+	{
+		cerr << "Not enough cmd line arguments provided!\n";
+		return -1;
+	}
+
+	const auto fileName = string( argv[ 1 ] );
+	if( !ifstream( fileName + ".csv" ) )
+	{
+		cerr << "Specified csv file could not be opened!\n";
+		return -2;
+	}
+
 	int i;
 	bool uniform_weight = true;
 	// Load input file
 	int problem_ct = 0;
 	csv_io csv;
-	string root;
+	/*string root;
 	cout << "Please enter the name (no spaces allowed) of the .csv file that you wish to examine (without the .csv extension): ";
 	cin >> root;
-	csv.setfilename(root);
+	csv.setfilename(root);*/
+	csv.setfilename( fileName );
 	while (csv.getproblem()) {
 		++problem_ct;
 		int N, M, L;
@@ -35,27 +49,27 @@ int main(int argc, char* argv[])
 		cout << "Performing consistency checks..." << endl;
 		if (L <= 0) {
 			cerr << "Inconsistency: Length of stock material " << L << " must be a positive integer." << endl;
-			cout << "Type something and hit ENTER to exit... ";
-			cin >> root;
+			/*cout << "Type something and hit ENTER to exit... ";
+			cin >> root;*/
 			exit(EXIT_FAILURE);
 		}
 		if (M == 0) {
 			cerr << "Inconsistency: Problem has no orders associated with it." << endl;
-			cout << "Type something and hit ENTER to exit... ";
-			cin >> root;
+			/*cout << "Type something and hit ENTER to exit... ";
+			cin >> root;*/
 			exit(EXIT_FAILURE);
 		}
 		for (i = 0; i < M; ++i) {
 			if (csv.Lv[i] <= 0 || csv.Lv[i] > L) {
 				cerr << "Inconsistency: Order width " << csv.Lv[i] << " does not satisfy 0 < value <= " << L << "." << endl;
-				cout << "Type something and hit ENTER to exit... ";
-				cin >> root;
+				/*cout << "Type something and hit ENTER to exit... ";
+				cin >> root;*/
 				exit(EXIT_FAILURE);
 			}
 			if (csv.qv[i] <= 0) {
 				cerr << "Inconsistency: Order quantity " << csv.qv[i] << " must be a positive integer." << endl;
-				cout << "Type something and hit ENTER to exit... ";
-				cin >> root;
+				/*cout << "Type something and hit ENTER to exit... ";
+				cin >> root;*/
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -93,7 +107,7 @@ int main(int argc, char* argv[])
 		csv.reset();
 	}
 	cout << "\nProgram is done executing! Have fun!! :)" << endl;
-	cout << "Type something and hit ENTER to exit... ";
-	cin >> root;
+	/*cout << "Type something and hit ENTER to exit... ";
+	cin >> root;*/
 	return 0;
 }

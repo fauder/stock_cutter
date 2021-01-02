@@ -2,8 +2,8 @@
 #include "stdafx.h"
 
 #include "pttn.h"
-#include "CoinPackedMatrix.hpp"
-#include "OsiClp/OsiClpSolverInterface.hpp"
+#include <coin-or/CoinPackedMatrix.hpp>
+#include <coin-or/OsiClpSolverInterface.hpp>
 
 // Object wrapping the MIP solver
 class solver {

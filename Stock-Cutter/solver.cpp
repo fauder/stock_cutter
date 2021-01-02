@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 #include "solver.h"
-#include "CoinPackedVector.hpp"
-#include "CbcModel.hpp"
+#include <coin-or/CoinPackedVector.hpp>
+#include <coin-or/CbcModel.hpp>
 //#include "CbcCompareDepth.hpp"
 //#include "CbcCompareObjective.hpp"
 //#include "CbcCompareEstimate.hpp"
@@ -61,7 +61,7 @@ void solver::run(std::vector<int>& xv, double& objv) {
 		sb->setInteger(i);
 	}
 	// Shoves solver into the CBC model
-	CbcModel model(*sb);
+	CbcModel model(*dynamic_cast< OsiSolverInterface* >( sb ) );
 	// Run CBC model
 	/*CbcCompareEstimate ccd;
 	model.setNodeComparison(ccd);*/
