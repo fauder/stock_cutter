@@ -15,19 +15,29 @@ using namespace std;
 	...Cause God is in control...
 */
 
+void Exit()
+{
+#ifdef _DEBUG
+	string userInput;
+	cout << "Type something and hit ENTER to exit... ";
+	cin >> userInput;
+#endif // _DEBUG
+	exit( EXIT_FAILURE );
+}
+
 int main(int argc, char* argv[])
 {
 	if( argc < 2 )
 	{
 		cerr << "Not enough cmd line arguments provided!\n";
-		return -1;
+		Exit();
 	}
 
 	const auto fileName = string( argv[ 1 ] );
 	if( !ifstream( fileName + ".csv" ) )
 	{
 		cerr << "Specified csv file could not be opened!\n";
-		return -2;
+		Exit();
 	}
 
 	int i;
@@ -49,28 +59,20 @@ int main(int argc, char* argv[])
 		cout << "Performing consistency checks..." << endl;
 		if (L <= 0) {
 			cerr << "Inconsistency: Length of stock material " << L << " must be a positive integer." << endl;
-			/*cout << "Type something and hit ENTER to exit... ";
-			cin >> root;*/
-			exit(EXIT_FAILURE);
+			Exit();
 		}
 		if (M == 0) {
 			cerr << "Inconsistency: Problem has no orders associated with it." << endl;
-			/*cout << "Type something and hit ENTER to exit... ";
-			cin >> root;*/
-			exit(EXIT_FAILURE);
+			Exit();
 		}
 		for (i = 0; i < M; ++i) {
 			if (csv.Lv[i] <= 0 || csv.Lv[i] > L) {
 				cerr << "Inconsistency: Order width " << csv.Lv[i] << " does not satisfy 0 < value <= " << L << "." << endl;
-				/*cout << "Type something and hit ENTER to exit... ";
-				cin >> root;*/
-				exit(EXIT_FAILURE);
+				Exit();
 			}
 			if (csv.qv[i] <= 0) {
 				cerr << "Inconsistency: Order quantity " << csv.qv[i] << " must be a positive integer." << endl;
-				/*cout << "Type something and hit ENTER to exit... ";
-				cin >> root;*/
-				exit(EXIT_FAILURE);
+				Exit();
 			}
 		}
 		cout << "Consistency checks passed!\n" << endl;
@@ -107,7 +109,10 @@ int main(int argc, char* argv[])
 		csv.reset();
 	}
 	cout << "\nProgram is done executing! Have fun!! :)" << endl;
-	/*cout << "Type something and hit ENTER to exit... ";
-	cin >> root;*/
+#ifdef _DEBUG
+	string userInput;
+	cout << "Type something and hit ENTER to exit... ";
+	cin >> userInput;
+#endif // _DEBUG
 	return 0;
 }
