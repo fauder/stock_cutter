@@ -33,10 +33,16 @@ int main(int argc, char* argv[])
 		Exit();
 	}
 
+#ifdef _DEBUG
+	for( auto i = 0; i < argc; i++ )
+		cout << "Cmd line arg " << i << ": " << argv[ i ] << "\n";
+#endif // _DEBUG
+
+
 	const auto fileName = string( argv[ 1 ] );
 	if( !ifstream( fileName + ".csv" ) )
 	{
-		cerr << "Specified csv file could not be opened!\n";
+		cerr << "Specified csv file (without extension): \"" << fileName << "\" could not be opened!\n";
 		Exit();
 	}
 
